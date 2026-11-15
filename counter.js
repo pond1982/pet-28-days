@@ -13,14 +13,16 @@
   fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     if (!d || typeof d.value !== 'number') return;
     if (!counted) { try { sessionStorage.setItem('petVisitCounted', '1'); } catch (e) {} }
-    var target = d.value, start = Math.max(0, target - 40), t0 = null;
+    var target = d.value, start = Math.max(0, target - 40), steps = 18, i = 0;
+    var fmt = function (n) { return n.toLocaleString('th-TH'); };
     box.classList.add('show');
-    function tick(ts) {
-      if (!t0) t0 = ts;
-      var p = Math.min(1, (ts - t0) / 900);
-      el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3))).toLocaleString('th-TH');
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+    el.textContent = fmt(start);
+    var iv = setInterval(function () {
+      i++;
+      var p = i / steps;
+      el.textContent = fmt(Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3))));
+      if (i >= steps) { clearInterval(iv); el.textContent = fmt(target); }
+    }, 50);
+    setTimeout(function () { clearInterval(iv); el.textContent = fmt(target); }, 2000);
   }).catch(function () {});
 })();
