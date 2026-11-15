@@ -208,3 +208,4 @@ details p{padding:0 0 20px;color:var(--ink2)}
 @media (max-width:980px){.team-switch .short{display:inline}}
 @media (max-width:1240px){.links{gap:16px;font-size:15px}}
 .links a{white-space:nowrap}
+.visits{display:none;margin-top:6px;font-size:14.5px;color:#CFC5BB}.visits.show{display:block}.visits b{color:#fff;font-family:Mitr;font-weight:500;font-size:16px;font-variant-numeric:tabular-nums}.visits span{opacity:.6}

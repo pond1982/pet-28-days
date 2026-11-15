@@ -67,6 +67,8 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:28px 
 .both a.t{color:var(--teal);border-color:#CFE8E4}
 footer{background:#2B2623;color:#CFC5BB;text-align:center;padding:26px 20px;font-size:14px;line-height:1.7}
 footer b{color:#fff}
+.visits{display:none;margin-top:6px;font-size:14.5px;color:#CFC5BB}.visits.show{display:inline-block}.visits b{color:#fff;font-family:Mitr;font-weight:500;font-size:16px;font-variant-numeric:tabular-nums}.visits span{opacity:.6}
+
 @media (max-width:860px){
   .arena{grid-template-columns:1fr;gap:16px}
   .vs{margin:0 auto;width:66px;height:66px;font-size:24px}
@@ -115,6 +117,7 @@ footer b{color:#fff}
 <footer>
   <b>ฝึกน้องกับข้าวตัง & ส้มโอ</b> · แจกฟรีเพื่อเจ้าของสัตว์เลี้ยงมือใหม่ทุกคน<br>
   ข้าวตังและส้มโอขอยืนยันว่าไม่ได้ทะเลาะกันจริง ๆ (แค่แย่งที่นอนบนโซฟาบ่อย ๆ)<br>
+  <span class="visits" aria-live="polite">👀 มีคนแวะมาเยี่ยมแล้ว <b id="visitCount">…</b> ครั้ง <span>(นับรวมทั้งทีมหมาและทีมแมว)</span><br></span>
   <span style="opacity:.6">เนื้อหาเป็นคำแนะนำการฝึกทั่วไป ไม่ใช่คำแนะนำทางสัตวแพทย์ · © 2026</span>
 </footer>
 
@@ -128,5 +131,6 @@ document.querySelectorAll('a.dl').forEach(function(a){
 </script>
 <script src="switch.js?v=4"></script>
 <script src="analytics.js?v=1"></script>
+<script src="counter.js?v=1"></script>
 </body>
 </html>
