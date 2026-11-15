@@ -48,7 +48,7 @@
       <a href="#preview">ตัวอย่างหน้า</a>
       <a href="#faq">คำถาม</a>
     </nav>
-    <a class="team-switch" href="../cat/" data-to="cat" data-loc="nav_switch" title="ไปทีมแมว"><span class="long">🐱 ไม่เอาหมา ฉันทีมแมว!</span><span class="short">🐱 ทีมแมว?</span></a>
+    <a class="team-switch" href="../cat/?from=dog" data-to="cat" data-loc="nav_switch" title="ไปทีมแมว"><span class="long">🐱 ไม่เอาหมา ฉันทีมแมว!</span><span class="short">🐱 ทีมแมว?</span></a>
     <a class="btn btn-sm dl" href="puppy-28-day-plan.pdf" download data-loc="nav">ดาวน์โหลดฟรี</a>
   </div>
 </header>
@@ -183,7 +183,7 @@
       <span class="eyebrow">เดี๋ยวนะ...</span>
       <h2>จริง ๆ แล้วคุณเป็นทาสแมวใช่ไหม? 😼</h2>
       <p>ไม่ต้องอาย ข้าวตังเข้าใจ (นิดหน่อย) ส้มโอก็มีสมุดฝึก 28 วันของตัวเอง ตั้งแต่กระบะทราย ที่ลับเล็บ ยันไฮไฟว์ ฟรีเหมือนกันเป๊ะ</p>
-      <a class="btn btn-lg btn-teal team-link" href="../cat/" data-to="cat" data-loc="cross_section">ใช่! พาฉันไปหาส้มโอ 🐱</a>
+      <a class="btn btn-lg btn-teal team-link" href="../cat/?from=dog" data-to="cat" data-loc="cross_section">ใช่! พาฉันไปหาส้มโอ 🐱</a>
       <a class="stay" href="#top">ไม่ล่ะ ฉันทีมหมาตลอดไป 🐶</a>
     </div>
   </div>
@@ -241,6 +241,6 @@ document.querySelectorAll('.card,.week,.pages figure,.steps li,.ticks li').forEa
 var f=document.querySelector('.float-dl'), h=document.querySelector('.hero');
 new IntersectionObserver(function(es){f.classList.toggle('show',!es[0].isIntersecting)}).observe(h);
 </script>
-<script src="../switch.js"></script>
+<script src="../switch.js?v=3"></script>
 </body>
 </html>

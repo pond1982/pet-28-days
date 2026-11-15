@@ -48,7 +48,7 @@
       <a href="#preview">ตัวอย่างหน้า</a>
       <a href="#faq">คำถาม</a>
     </nav>
-    <a class="team-switch" href="../dog/" data-to="dog" data-loc="nav_switch" title="ไปทีมหมา"><span class="long">🐶 แมวเมินอีกแล้ว ไปทีมหมาดีกว่า</span><span class="short">🐶 ทีมหมา?</span></a>
+    <a class="team-switch" href="../dog/?from=cat" data-to="dog" data-loc="nav_switch" title="ไปทีมหมา"><span class="long">🐶 แมวเมินอีกแล้ว ไปทีมหมาดีกว่า</span><span class="short">🐶 ทีมหมา?</span></a>
     <a class="btn btn-sm dl" href="kitten-28-day-plan.pdf" download data-loc="nav">ดาวน์โหลดฟรี</a>
   </div>
 </header>
@@ -175,7 +175,7 @@
       <span class="eyebrow">หรือว่า...</span>
       <h2>แอบใจรักหมาอยู่ใช่ไหมล่ะ? 🐶</h2>
       <p>ส้มโอจะทำเป็นไม่เห็นก็ได้ ข้าวตังก็มีสมุดฝึก 28 วันของตัวเอง ตั้งแต่ขับถ่ายเป็นที่ นอนในกรง ยันเดินสายจูง ฟรีเหมือนกันเป๊ะ</p>
-      <a class="btn btn-lg team-link" href="../dog/" data-to="dog" data-loc="cross_section">ยอมรับก็ได้ ไปหาข้าวตัง 🐶</a>
+      <a class="btn btn-lg team-link" href="../dog/?from=cat" data-to="dog" data-loc="cross_section">ยอมรับก็ได้ ไปหาข้าวตัง 🐶</a>
       <a class="stay" href="#top">ไม่มีทาง แมวคือที่หนึ่ง 😼</a>
     </div>
   </div>
@@ -232,6 +232,6 @@ document.querySelectorAll('.card,.week,.pages figure,.steps li,.ticks li').forEa
 var f=document.querySelector('.float-dl'), h=document.querySelector('.hero');
 new IntersectionObserver(function(es){f.classList.toggle('show',!es[0].isIntersecting)}).observe(h);
 </script>
-<script src="../switch.js"></script>
+<script src="../switch.js?v=3"></script>
 </body>
 </html>
