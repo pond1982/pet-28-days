@@ -15,3 +15,9 @@ Counters (free Abacus API, namespace `pond1982-pet-28-days`, no sign-up):
 - `visits`: one hit per browser session on any page, shown in every footer (`counter.js`).
 - `dl-dog` / `dl-cat`: one hit per browser session when a team's thank-you page opens; shown as the team dog vs team cat download scoreboard (`scoreboard.js`) on home, plan and thank-you pages.
 These public counters can be inflated by anyone calling the API; treat GA4 as the source of truth.
+
+## About Pondd and dancing Easter egg
+
+All five pages include an About section with Pondd's original character and two embedded dance clips from Screenshot Studio. Tap or Enter changes the dance, a pause button is available, and reduced-motion visitors get static poses. The character loads near the viewport. Existing visitor counter, scoreboard, analytics and PDF downloads are unchanged. The shared component is in `pondd-character/`; a text greeting remains if 3D cannot load.
+
+Each page also links to Pondd's three YouTube channels alongside the website network. Basic markup checks: `python3 tests/test_about.py`.
