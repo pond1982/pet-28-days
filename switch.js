@@ -95,5 +95,34 @@
     setTimeout(function () { ov.style.transition = ''; ov.classList.add('leave'); confetti(team); }, 650);
     setTimeout(function () { ov.remove(); }, 1500);
   }
+
+  // Download: celebration overlay, then thank-you page (which starts the download)
+  var DL = {
+    dog: ['เย้! ได้สมุดฝึกแล้ว 🎉', 'ข้าวตังกำลังคาบไฟล์วิ่งมาส่ง… 🐶💨', root + 'dog/assets/img/grad.webp'],
+    cat: ['เย้! ได้สมุดฝึกแล้ว 🎉', 'ส้มโอกำลังเข็นไฟล์มาให้ (อย่างช้า ๆ อย่างมีสไตล์) 🐱', root + 'cat/assets/img/grad.webp']
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.dl[download]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var team = a.getAttribute('data-team') || document.body.getAttribute('data-team');
+    if (!DL[team]) return;
+    e.preventDefault();
+    var href = root + team + '/thanks/';
+    try { sessionStorage.setItem('petDl', team); } catch (err) {}
+    if (reduce) { window.location.href = href; return; }
+    var ov = overlay(team, DL[team][0], DL[team][1], e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+    var img = ov.querySelector('img'); if (img) img.src = DL[team][2];
+    requestAnimationFrame(function () { requestAnimationFrame(function () { ov.classList.add('open'); confetti(team); }); });
+    setTimeout(function () { window.location.href = href; }, 1600);
+  });
+  var dlArrived = null;
+  try { dlArrived = sessionStorage.getItem('petDl'); sessionStorage.removeItem('petDl'); } catch (err) {}
+  if (dlArrived && dlArrived === team && !reduce && /\/thanks\/?$/.test(location.pathname)) {
+    var ov2 = overlay(team, 'ขอบคุณนะ! 💛', '', window.innerWidth / 2, window.innerHeight / 2);
+    var im2 = ov2.querySelector('img'); if (im2) im2.src = DL[team][2];
+    ov2.classList.add('open'); ov2.style.transition = 'none';
+    setTimeout(function () { ov2.style.transition = ''; ov2.classList.add('leave'); }, 500);
+    setTimeout(function () { ov2.remove(); }, 1300);
+  }
   window.addEventListener('pageshow', function (ev) { if (ev.persisted) document.querySelectorAll('.ps-ov').forEach(function (o) { o.remove(); }); });
 })();
