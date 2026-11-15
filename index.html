@@ -80,7 +80,7 @@ footer b{color:#fff}
 {"@context":"https://schema.org","@type":"WebSite","name":"แผนฝึก 28 วัน · ข้าวตัง & ส้มโอ","url":"https://pond1982.github.io/pet-28-days/","inLanguage":"th"}
 </script>
 </head>
-<body>
+<body data-team="home">
 <header>
   <span class="tag">สมุดฝึกฟรี · ภาษาไทย · พิมพ์ได้ทันที</span>
   <h1>ทีม<span class="d">หมา</span> หรือ ทีม<span class="c">แมว</span>?</h1>
@@ -89,7 +89,7 @@ footer b{color:#fff}
 
 <main>
   <div class="arena">
-    <a class="side dog pick" href="dog/" data-team="dog">
+    <a class="side dog pick" href="dog/" data-team="dog" data-to="dog">
       <span class="quote">“หมาคือเพื่อนแท้ แมวคือเจ้านาย ส้มโอยอมรับมาเถอะ” — ข้าวตัง</span>
       <img src="dog/assets/img/hero.webp" alt="ข้าวตัง ลูกหมาไทยผูกผ้าพันคอสีส้ม" width="460" height="498">
       <h2>ทีมหมา 🐶</h2>
@@ -97,7 +97,7 @@ footer b{color:#fff}
       <span class="btn">เลือกทีมหมา →</span>
     </a>
     <div class="vs" aria-hidden="true">VS</div>
-    <a class="side cat pick" href="cat/" data-team="cat">
+    <a class="side cat pick" href="cat/" data-team="cat" data-to="cat">
       <span class="quote">“เมี้ยว… ไม่ต้องเลือกหรอก คุณเป็นของส้มโอแล้ว” — ส้มโอ</span>
       <img src="cat/assets/img/hero.webp" alt="ส้มโอ ลูกแมวส้มใส่ปลอกคอสีเขียว" width="460" height="493">
       <h2>ทีมแมว 🐱</h2>
@@ -126,5 +126,6 @@ document.querySelectorAll('a.dl').forEach(function(a){
   a.addEventListener('click',function(){ if(typeof gtag==='function') gtag('event','download_pdf',{file_name:a.getAttribute('href').split('/').pop(),link_location:'home_both',team:a.dataset.team}); });
 });
 </script>
+<script src="switch.js"></script>
 </body>
 </html>
