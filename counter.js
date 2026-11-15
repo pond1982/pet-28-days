@@ -9,7 +9,7 @@
   try { counted = sessionStorage.getItem('petVisitCounted') === '1'; } catch (e) {}
   var url = 'https://abacus.jasoncameron.dev/' + (counted ? 'get' : 'hit') + '/' + NS + '/' + KEY;
   var ctl = window.AbortController ? new AbortController() : null;
-  if (ctl) setTimeout(function () { ctl.abort(); }, 6000);
+  if (ctl) setTimeout(function () { ctl.abort(); }, 15000);
   fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     if (!d || typeof d.value !== 'number') return;
     if (!counted) { try { sessionStorage.setItem('petVisitCounted', '1'); } catch (e) {} }
