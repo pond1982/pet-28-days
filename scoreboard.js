@@ -36,12 +36,8 @@
   var root = (document.currentScript && document.currentScript.src.replace(/scoreboard\.js.*$/, '')) || './';
 
   function call(action, key) {
-    var ctl = window.AbortController ? new AbortController() : null;
-    if (ctl) setTimeout(function () { ctl.abort(); }, 15000);
-    return fetch(API + '/' + action + '/' + NS + '/' + key, ctl ? { signal: ctl.signal } : {})
-      .then(function (r) { if (r.status === 404) return { value: 0 }; return r.ok ? r.json() : null; })
-      .then(function (d) { return d && typeof d.value === 'number' ? d.value : null; })
-      .catch(function () { return null; });
+    if (!window.PetCount) return Promise.resolve(null);
+    return action === 'hit' ? PetCount.hit(key) : PetCount.get(key);
   }
 
   var counted = false, flag = 'petDlCounted_' + team;
@@ -52,9 +48,23 @@
     addMine && team === 'dog' ? call('hit', 'dl-dog') : call('get', 'dl-dog'),
     addMine && team === 'cat' ? call('hit', 'dl-cat') : call('get', 'dl-cat')
   ]).then(function (v) {
-    var dog = v[0], cat = v[1];
-    if (dog === null || cat === null) return;
-    if (addMine) { try { sessionStorage.setItem(flag, '1'); } catch (e) {} }
+    var dog = v[0] !== null ? v[0] : (window.PetCount ? PetCount.cached('dl-dog') : null);
+    var cat = v[1] !== null ? v[1] : (window.PetCount ? PetCount.cached('dl-cat') : null);
+    if (dog === null && cat === null) return;
+    if (dog === null) dog = 0;
+    if (cat === null) cat = 0;
+    var mineOk = addMine && v[team === 'dog' ? 0 : 1] !== null;
+    if (mineOk) { try { sessionStorage.setItem(flag, '1'); } catch (e) {} }
+    render(dog, cat, mineOk);
+  });
+
+  // first paint from numbers this browser saw before, so the board never sits empty
+  if (window.PetCount) {
+    var cd = PetCount.cached('dl-dog'), cc = PetCount.cached('dl-cat');
+    if (cd !== null || cc !== null) render(cd || 0, cc || 0, false, true);
+  }
+
+  function render(dog, cat, mineOk, quiet) {
     var total = dog + cat, pctDog = total ? Math.round(dog / total * 100) : 50;
     var fmt = function (n) { return n.toLocaleString('th-TH'); };
     var msg;
@@ -71,7 +81,7 @@
         : (100 - pctDog) >= 70 ? '<b>ทีมแมวนำขาดลอย!</b> ส้มโอนอนเหยียดยาวบนโซฟาอย่างผู้ชนะ ข้าวตังนั่งซึม 🥺'
         : '<b>ทีมแมวนำอยู่ ' + fmt(gap2) + ' แต้ม!</b> ข้าวตังทำหน้าเศร้า... ทีมหมาสู้ ๆ 🐶';
     }
-    var you = addMine ? '<div><span class="sb-you" style="background:' + (team === 'dog' ? '#E2714B' : '#1F7A74') + '">คุณเพิ่งช่วยทีม' + (team === 'dog' ? 'หมา 🐶' : 'แมว 🐱') + ' +1 แต้ม!</span></div>' : '';
+    var you = mineOk ? '<div><span class="sb-you" style="background:' + (team === 'dog' ? '#E2714B' : '#1F7A74') + '">คุณเพิ่งช่วยทีม' + (team === 'dog' ? 'หมา 🐶' : 'แมว 🐱') + ' +1 แต้ม!</span></div>' : '';
     var html = '<div class="sb"><span class="sb-head">🏆 ศึกยอดดาวน์โหลด</span>' +
       '<div class="sb-row">' +
       '<span class="sb-side sb-dog' + (dog > cat ? ' sb-lead' : '') + '"><img src="' + root + 'dog/assets/img/sit.webp" alt=""><span>ทีมหมา<br><b data-n="' + dog + '">0</b></span></span>' +
@@ -92,6 +102,6 @@
         var iv = setInterval(function () { i++; b.textContent = fmt(Math.round(target * (1 - Math.pow(1 - i / steps, 3)))); if (i >= steps) { clearInterval(iv); b.textContent = fmt(target); } }, 45);
       });
     });
-    if (typeof gtag === 'function') gtag('event', 'scoreboard_loaded', { team: team, dog_downloads: dog, cat_downloads: cat, leader: dog === cat ? 'tie' : (dog > cat ? 'dog' : 'cat') });
-  });
+    if (!quiet && typeof gtag === 'function') gtag('event', 'scoreboard_loaded', { team: team, dog_downloads: dog, cat_downloads: cat, leader: dog === cat ? 'tie' : (dog > cat ? 'dog' : 'cat') });
+  }
 })();
